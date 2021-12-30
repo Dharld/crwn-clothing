@@ -2,9 +2,9 @@ import React from "react"
 import "./homepage.style.scss"
 import Directory from "../../components/directory-menu/directory-menu.component"
 
-const Homepage = () => (
+const Homepage = ({history}) => (
     <div className="homepage">
-        <Directory/>
+        <Directory history = {history} />
     </div>
 )
 
