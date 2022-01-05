@@ -15,9 +15,7 @@ const Header = ({ currentUser }) => (
             {
                 currentUser ?
                 <div style = {{ cursor: "pointer"}} onClick = {() => {
-                    auth.signOut().then(() => {
-                        console.log("Log out successfull")
-                    })
+                    auth.signOut()
                 }}>SIGN OUT</div>
                 :
                 <Link className = "option" to = "/signin">SIGN IN</Link>
