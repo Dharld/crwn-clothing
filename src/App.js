@@ -6,20 +6,22 @@ import Header from "./components/header/header.component"
 import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import {auth, createUserProfile} from "./firebase/firebase.utils"
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setCurrentUser
-} from "./redux/user/user.slice"
-
+} from "./redux/user/userSlice"
 import {
   Switch,
   Route,
+  Redirect
 } from "react-router-dom"
 
 
 function App() {
 
   const dispatch = useDispatch();
+  const currentUser = useSelector(state => state.user.current_user)
+
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if(userAuth) {
@@ -39,7 +41,7 @@ function App() {
     return () => {
       unsubscribeFromAuth()
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <div>
@@ -47,7 +49,7 @@ function App() {
       <Switch>
         <Route exact path = "/" component = {Homepage} />
         <Route path = "/shop" component = {ShopPage} />
-        <Route path = "/signin" component = {SignInAndSignUp} />
+        <Route exact path = "/signin" render={() => currentUser ? (<Redirect to = "/"/>) : (<SignInAndSignUp/>)} />
       </Switch>
     </div>
   );

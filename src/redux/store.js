@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./root.reducer";
+import rootReducer from "./rootReducer";
 import loggerMiddleware from "redux-logger"
 
 export default function configureAppStore(preloadedState) {
