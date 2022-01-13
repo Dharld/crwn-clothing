@@ -7,20 +7,22 @@ import CustomButton from "../custom-button/custom-button.component"
 import CartItem from "../cart-item/cart-item.component"
 import { useSelector } from "react-redux"
 import { selectCartItems } from "../../redux/cart/cart.selectors"
+import { toggleCart } from "../../redux/cart/cartSlice"
 
 import { useHistory } from "react-router"
+import { useDispatch } from "react-redux"
 
 const CartDropdown = () => {
     const cartItems = useSelector(state => selectCartItems(state))
     const history = useHistory()
-
+    const dispatch = useDispatch()
     return(
         <div className="cart-dropdown">
             <div className="cart-items">
                 {
                     cartItems.length ?
                     cartItems
-                        .map(cartItem => (<CartItem key = {cartItem.id} item = {cartItem} />))
+                        .map(cartItem => (<CartItem key={cartItem.id} item = {cartItem} />))
                     :
                     (<span style = {{
                         margin: "50px auto",
@@ -30,6 +32,7 @@ const CartDropdown = () => {
             </div>
             <CustomButton onClick = {() => {
                 history.push("/checkout")
+                dispatch(toggleCart())
             }}>GO TO CHECKOUT</CustomButton>
         </div>
     )
