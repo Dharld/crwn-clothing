@@ -5,8 +5,7 @@ import { useSelector } from "react-redux"
 import "./collections-overview.styles.scss"
 
 function CollectionsOverview() {
-        const collections = Array.from(useSelector(selectCollections))
-        console.log(collections)
+        const collections = useSelector(selectCollections)
         return(
             <div className="collections-overview">
                 {

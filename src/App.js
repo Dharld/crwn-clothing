@@ -23,15 +23,15 @@ function App() {
 
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.user.current_user)
-
+  
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if(userAuth) {
         const userRef = await createUserProfile(userAuth)
-        userRef.onSnapshot(snapshot => {
+        userRef.onSnapshot(userSnapshot => {
           dispatch(setCurrentUser({
             id: userRef.id,
-            ...snapshot.data()
+            ...userSnapshot.data()
           }))
         })
       }
